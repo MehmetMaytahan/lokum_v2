@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Turkish Delight</title>
+
+    <style>
+      /* GENEL */
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #6b1e1e;
+        padding: 15px 40px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-radius: 1rem;
+        margin: 0.5rem 1rem;
+      }
+
+      /* LOGO */
+      .logo {
+        color: #fff5e1;
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      /* MENÜ */
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+
+      .nav-links li a {
+        text-decoration: none;
+        color: #fff5e1;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+
+      /* HOVER EFEKT */
+      .nav-links li a:hover {
+        color: #c9a14a;
+      }
+
+      /* BUTON */
+      .order-btn {
+        background-color: #c9a14a;
+        color: black;
+        padding: 8px 15px;
+        border-radius: 5px;
+      }
+
+      /* MOBİL MENÜ */
+      .menu-toggle {
+        display: none;
+        font-size: 25px;
+        color: white;
+        cursor: pointer;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .nav-links {
+          position: absolute;
+          top: 70px;
+          right: 0;
+          background-color: #6b1e1e;
+          width: 200px;
+          flex-direction: column;
+          align-items: center;
+          display: none;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .menu-toggle {
+          display: block;
+        }
+      }
+    </style>
+
+    <style>
+      .carousel-wrapper {
+        margin: 0.5rem 12rem;
+        border-radius: 1rem;
+      }
+      /* CAROUSEL */
+      .carousel {
+        position: relative;
+        width: 100%;
+        height: 650px;
+        overflow: hidden;
+        border-radius: 1rem;
+      }
+
+      /* SLIDE */
+      .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        pointer-events: none; /* 🔥 ÖNEMLİ */
+        transition: opacity 1.5s ease-in-out;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto; /* sadece aktif olan hover alır */
+      }
+
+      /* IMAGE */
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* INFO BOX */
+      .info {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: 0.3s;
+      }
+
+      /* HOVER */
+      .slide.active:hover .info {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+
+    <style>
+      /* SECTION */
+      .products-section {
+        padding: 80px 40px;
+        text-align: center;
+        /* background: linear-gradient(to bottom, #fff5e1, #fdf0d5); */
+      }
+
+      .products-section h2 {
+        font-size: 32px;
+        color: #6b1e1e;
+      }
+
+      .subtitle {
+        color: #777;
+        margin-bottom: 40px;
+      }
+
+      /* GRID */
+      .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 30px;
+      }
+
+      /* CARD */
+      .product-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: 0.4s;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      /* HOVER */
+      .product-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      /* IMAGE BOX (🔥 KRİTİK KISIM) */
+      .image-box {
+        width: 100%;
+        height: 200px; /* TÜM GÖRSELLER AYNI BOY */
+        overflow: hidden;
+      }
+
+      .image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 🔥 BOZULMADAN KES */
+        transition: 0.4s;
+      }
+
+      /* IMAGE HOVER */
+      .product-card:hover img {
+        transform: scale(1.1);
+      }
+
+      /* TEXT */
+      .product-card h3 {
+        margin: 15px 0 5px;
+      }
+
+      .product-card p {
+        font-size: 14px;
+        color: #666;
+        padding: 0 10px;
+      }
+
+      /* PRICE */
+      .price {
+        display: block;
+        margin: 10px 0;
+        font-weight: bold;
+        color: #c9a14a;
+        font-size: 18px;
+      }
+
+      /* BUTTON */
+      .product-card button {
+        margin-bottom: 15px;
+        background: #6b1e1e;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .product-card button:hover {
+        background: #c9a14a;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo">🍬 Maytahan Şekerleme</div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#">Ana Sayfa</a></li>
+        <li><a href="#">Ürünler</a></li>
+        <li><a href="#">Hakkımızda</a></li>
+        <li><a href="#">Yorumlar</a></li>
+        <li><a href="#" class="order-btn">Sipariş Ver</a></li>
+      </ul>
+
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <div class="carousel-wrapper">
+      <section class="carousel">
+        <div class="slide active">
+          <img
+            src="https://www.ikbalonline.com/images/product/ikbal/1370/ici-disi-cikolatali-hindistan-cevizi-kapli-lokum-1000-gr_db3e0e6c-3281-403d-990b-489f8b998189_1500x1500_2.jpg"
+            alt="Gül Lokumu"
+          />
+          <div class="info">
+            Gül Lokumu: Doğal gül aromasıyla hafif ve ferah bir tat.
+          </div>
+        </div>
+
+        <div class="slide">
+          <img
+            src="https://www.ikbalonline.com/images/product/ikbal/1367/sultan-antep-fistikli-file-fistik-kapli-lokum-750-gr_39169e5f-db6a-4b08-a392-dfd15d69205d_1500x1500_2.jpg"
+            alt="Fıstıklı Lokum"
+          />
+          <div class="info">
+            Fıstıklı Lokum: Bol Antep fıstığıyla zengin lezzet.
+          </div>
+        </div>
+
+        <div class="slide">
+          <img
+            src="https://www.ikbalonline.com/images/product/ikbal/1324/sultan-cevizli-hindistan-cevizi-kapli-lokum-400-gr_057d1424-9352-4f94-81e0-06f33e058db1_1500x1500_2.jpg"
+            alt="Cevizli Lokum"
+          />
+          <div class="info">
+            Cevizli Lokum: Geleneksel tarifle hazırlanmış yoğun aroma.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="products-section">
+      <h2>Lokum Çeşitlerimiz</h2>
+      <p class="subtitle">Geleneksel lezzetler, modern sunum</p>
+
+      <div class="products">
+        <div class="product-card">
+          <div class="image-box">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSg4t6yiKLlYhVhfX_zPXWu0KKD-Uh0-pjng&s"
+              alt="Gül Lokumu"
+            />
+          </div>
+          <h3>Gül Lokumu</h3>
+          <p>Doğal gül aromalı klasik lezzet</p>
+          <span class="price">₺120/Kg</span>
+          <a
+            href="https://wa.me/905357212792?text=Merhaba,%20G%C3%BCl%20Lokumu%20sipari%C5%9F%20etmek%20istiyorum."
+            target="_blank"
+          >
+            <button>Satın Al</button>
+          </a>
+        </div>
+
+        <div class="product-card">
+          <div class="image-box">
+            <img
+              src="https://www.ikbalonline.com/images/product/ikbal/1367/sultan-antep-fistikli-file-fistik-kapli-lokum-750-gr_39169e5f-db6a-4b08-a392-dfd15d69205d_1500x1500_2.jpg"
+              alt="Fıstıklı Lokum"
+            />
+          </div>
+          <h3>Fıstıklı Lokum</h3>
+          <p>Bol Antep fıstıklı premium lokum</p>
+          <span class="price">₺150</span>
+          <button>Satın Al</button>
+        </div>
+
+        <div class="product-card">
+          <div class="image-box">
+            <img
+              src="https://www.ikbalonline.com/images/product/ikbal/1324/sultan-cevizli-hindistan-cevizi-kapli-lokum-400-gr_057d1424-9352-4f94-81e0-06f33e058db1_1500x1500_2.jpg"
+              alt="Cevizli Lokum"
+            />
+          </div>
+          <h3>Cevizli Lokum</h3>
+          <p>Geleneksel ceviz dolgulu lezzet</p>
+          <span class="price">₺130</span>
+          <button>Satın Al</button>
+        </div>
+
+        <div class="product-card">
+          <div class="image-box">
+            <img
+              src="https://www.ikbalonline.com/images/product/ikbal/1370/ici-disi-cikolatali-hindistan-cevizi-kapli-lokum-1000-gr_db3e0e6c-3281-403d-990b-489f8b998189_1500x1500_2.jpg"
+              alt="Çikolatalı Lokum"
+            />
+          </div>
+          <h3>Çikolatalı Lokum</h3>
+          <p>Çikolata kaplı modern tat</p>
+          <span class="price">₺160</span>
+          <button>Satın Al</button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("active");
+      }
+    </script>
+  </body>
+
+  <script>
+    let slides = document.querySelectorAll(".slide");
+    let index = 0;
+
+    function showSlide() {
+      slides[index].classList.remove("active");
+      index = (index + 1) % slides.length;
+      slides[index].classList.add("active");
+    }
+
+    /* 5 saniye */
+    setInterval(showSlide, 5000);
+  </script>
+</html>
