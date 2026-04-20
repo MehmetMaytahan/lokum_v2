@@ -109,6 +109,42 @@
         background: transparent;
         border: 1px solid #111;
       }
+      .carousel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+      }
+
+      .carousel img {
+        width: 100%;
+        display: none;
+        border-radius: 20px;
+      }
+
+      .carousel img.active {
+        display: block;
+      }
+
+      /* BUTONLAR */
+      .carousel button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.4);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+
+      .prev {
+        left: 10px;
+      }
+
+      .next {
+        right: 10px;
+      }
 
       /* IMAGE */
       .hero-image {
@@ -185,6 +221,10 @@
         padding: 30px;
         background: white;
         margin-top: 50px;
+
+        span {
+          margin: 0px 1rem;
+        }
       }
 
       /* MOBILE */
@@ -378,6 +418,85 @@
         font-size: 13px;
         color: #777;
       }
+
+      /* ABOUT */
+      .about-section {
+        padding: 80px 60px;
+      }
+
+      .about-container {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        background: white;
+        border-radius: 20px;
+        padding: 50px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      /* TEXT */
+      .about-text {
+        flex: 1;
+      }
+
+      .about-text h2 {
+        font-size: 32px;
+        margin-bottom: 15px;
+      }
+
+      .about-text p {
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      /* LIST */
+      .about-list {
+        list-style: none;
+        margin-top: 20px;
+      }
+
+      .about-list li {
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      /* IMAGE */
+      .about-image {
+        flex: 1;
+      }
+
+      .about-image img {
+        width: 100%;
+        max-height: 450px;
+        border-radius: 20px;
+        object-fit: cover;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+      .about-container:hover {
+        transform: translateY(-5px);
+        transition: 0.3s;
+      }
+      .about-container {
+        gap: 30px;
+      }
+
+      /* MOBILE */
+      @media (max-width: 768px) {
+        .about-section {
+          padding: 60px 20px;
+        }
+
+        .about-container {
+          flex-direction: column;
+          padding: 30px;
+          text-align: center;
+        }
+
+        .about-text h2 {
+          font-size: 26px;
+        }
+      }
     </style>
   </head>
 
@@ -386,16 +505,15 @@
     <nav class="navbar">
       <div class="logo">🍬 Maytahan</div>
       <ul class="nav-links">
-        <li><a href="#">Ana Sayfa</a></li>
-        <li><a href="#">Ürünler</a></li>
-        <li><a href="#">Hakkımızda</a></li>
+        <li><a href="#hero">Ana Sayfa</a></li>
+        <li><a href="#products">Ürünler</a></li>
+        <li><a href="#about">Hakkımızda</a></li>
       </ul>
       <div class="menu-toggle">☰</div>
     </nav>
 
     <!-- HERO -->
-
-    <section class="hero animate delay-1">
+    <section id="hero" class="hero animate delay-1">
       <div class="hero-text animate fade-left">
         <h1>Gerçek Lokumun Tadını Keşfet</h1>
         <p>Geleneksel tarifler, modern sunum</p>
@@ -411,9 +529,17 @@
       </div>
 
       <div class="hero-image animate fade-right">
-        <img
-          src="https://www.ikbalonline.com/images/product/ikbal/1367/sultan-antep-fistikli-file-fistik-kapli-lokum-750-gr_39169e5f-db6a-4b08-a392-dfd15d69205d_1500x1500_2.jpg"
-        />
+        <div class="carousel">
+          <img
+            src="https://www.ikbalonline.com/images/product/ikbal/1367/sultan-antep-fistikli-file-fistik-kapli-lokum-750-gr_39169e5f-db6a-4b08-a392-dfd15d69205d_1500x1500_2.jpg"
+            class="active"
+          />
+          <img src="img2.jpg" />
+          <img src="img3.jpg" />
+
+          <!-- <button class="prev">❮</button>
+          <button class="next">❯</button> -->
+        </div>
       </div>
     </section>
     <!-- PRODUCTS -->
@@ -434,10 +560,16 @@
 
             <div class="card-bottom">
               <span class="price">₺400</span>
-              <a href="https://wa.me/905357212792?text=Merhaba,%20Çikolatalı%20Lokum%20siparişi%20vermek%20istiyorum." target="_blank">
+              <a
+                href="https://wa.me/905357212792?text=Merhaba,%20Çikolatalı%20Lokum%20siparişi%20vermek%20istiyorum."
+                target="_blank"
+              >
                 <button class="btn">Satın Al</button>
               </a>
             </div>
+            <p class="trust">
+              ✔ Katkısız • ✔ Günlük Üretim • ✔ Güvenli Paketleme
+            </p>
           </div>
         </div>
 
@@ -454,7 +586,10 @@
 
             <div class="card-bottom">
               <span class="price">₺650</span>
-              <a href="https://wa.me/905357212792?text=Merhaba,%20Antep%20Fıstıklı%20Lokum%20siparişi%20vermek%20istiyorum." target="_blank">
+              <a
+                href="https://wa.me/905357212792?text=Merhaba,%20Antep%20Fıstıklı%20Lokum%20siparişi%20vermek%20istiyorum."
+                target="_blank"
+              >
                 <button class="btn">Satın Al</button>
               </a>
             </div>
@@ -474,11 +609,50 @@
 
             <div class="card-bottom">
               <span class="price">₺400</span>
-              <a href="https://wa.me/905357212792?text=Merhaba,%20Cevizli%20Lokum%20siparişi%20vermek%20istiyorum." target="_blank">
+              <a
+                href="https://wa.me/905357212792?text=Merhaba,%20Cevizli%20Lokum%20siparişi%20vermek%20istiyorum."
+                target="_blank"
+              >
                 <button class="btn">Satın Al</button>
               </a>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about-section animate">
+      <div class="about-container">
+        <div class="about-text animate fade-left">
+          <h2>Hakkımızda</h2>
+          <p style="color: #c9a14a; font-weight: 600; margin-bottom: 10px">
+            20+ Yıllık Tecrübe • Geleneksel Üretim • Güvenilir Hizmet
+          </p>
+          <p>
+            Maytahan Şekerleme, lokum üretiminde 20 yılı aşkın deneyime sahip
+            bir marka olarak geleneksel lezzetleri günümüz standartlarıyla
+            buluşturur. Ustalıkla hazırlanan ürünlerimiz, yılların verdiği
+            tecrübe ve titizlikle her gün taze olarak üretilmektedir.
+          </p>
+
+          <p>
+            Katkısız içerik, kaliteli hammaddeler ve özenli üretim süreci ile
+            müşterilerimize sadece bir tatlı değil, güvenilir bir lezzet
+            deneyimi sunuyoruz.
+          </p>
+
+          <p>
+            Her siparişi aynı özenle hazırlıyor, özel paketleme ile sizlere
+            ulaştırıyoruz. Bizim için her müşteri, uzun yıllara dayanan emeğin
+            emanetidir.
+          </p>
+        </div>
+
+        <div class="about-image animate fade-right">
+          <img
+            src="https://www.ikbalonline.com/images/product/ikbal/1424/sultan-karisik-lokum-cikolatalifindik-ezmeli-400-gr_7ab9aa1e-4698-492b-83f4-cb7a721ed07c_1500x1500.jpg"
+          />
         </div>
       </div>
     </section>
@@ -502,24 +676,53 @@
         <p>En kaliteli malzemelerle üretim</p>
       </div>
     </section>
+    <footer>
+      <span>📍 Türkiye • 📦 Güvenli gönderim</span>
+      <span>📞 0535 721 27 92</span>
+      <span>© 2026 Maytahan Şekerleme</span>
+    </footer>
 
-    <footer>© 2026 Maytahan Şekerleme</footer>
-  </body>
-  <script>
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          }
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            }
+          });
+        },
+        {
+          threshold: 0.2,
+        },
+      );
+// ------------- NAVBAR LİNK SAYFA ORTALAMA
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          const target = document.querySelector(targetId);
+
+          const y =
+            target.offsetTop - window.innerHeight / 2 + target.offsetHeight / 2;
+
+          window.scrollTo({
+            top: y,
+            behavior: "smooth",
+          });
         });
-      },
-      {
-        threshold: 0.2,
-      },
-    );
+      });
 
-    const elements = document.querySelectorAll(".animate");
-    elements.forEach((el) => observer.observe(el));
-  </script>
+      const elements = document.querySelectorAll(".animate");
+      elements.forEach((el) => observer.observe(el));
+
+      const navbar = document.querySelector(".navbar").offsetHeight;
+
+      const y =
+        target.offsetTop -
+        window.innerHeight / 2 +
+        target.offsetHeight / 2 -
+        navbar / 2;
+    </script>
+  </body>
 </html>
